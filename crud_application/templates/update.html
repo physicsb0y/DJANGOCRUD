@@ -1,0 +1,71 @@
+{% extends 'layouts.html' %}
+
+
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Update Record</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group m-2 p-2">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="{{ userData.name }}" class="form-control"
+                    placeholder="Name" required>
+            </div>
+            <div class="form-group m-2 p-2">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="{{ userData.email }}" class="form-control"
+                    placeholder="Email" required>
+            </div>
+
+            <div class="form-group m-2 p-2">
+                <label for="geder">Gender</label>
+                <label><input type="radio" name="gender" {% if userData.gender == 'male' %} checked {% endif %}
+                        value="male">Male</label>
+                <label><input type="radio" name="gender" {% if userData.gender == 'female' %} checked {% endif %}
+                        value="female">Female</label>
+            </div>
+
+            <div class="form-group m-2 p-2">
+                <label for="language">Language</label>
+                <label><input type="checkbox" name="language" {% if 'nepali' in userData.get_language %} checked
+                        {% endif %} value="nepali">Nepali</label>
+                <label><input type="checkbox" name="language" {% if 'english' in userData.get_language %} checked
+                        {% endif %} value="english">English</label>
+                <label><input type="checkbox" name="language" {% if 'chinese' in userData.get_language %} checked
+                        {% endif %} value="chinese">Chinese</label>
+            </div>
+
+            <div class="form-group m-2 p-2">
+                <label for="country">Country</label>
+                <select name="country" id="country" class="form-control">
+                    <option value="nepal" {% if userData.country == 'nepal' %} selected {% endif %}>Nepal</option>
+                    <option value="china" {% if userData.country == 'china' %} selected {% endif %}>China</option>
+                    <option value="india">India</option>
+                    <option value="brazil">Brazil</option>
+                    <option value="usa" {% if userData.country == 'usa' %} selected {% endif %}>USA</option>
+                </select>
+            </div>
+
+            <div class="form-group m-2 p-2">
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image" class="btn btn-primary">
+            </div>
+
+            <div class="form-group m-2 p-2">
+                <button class="btn btn-success">Update Record</button>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="col-md-4">
+
+        {% if userData.image %}
+        <img src="{{userData.image.url}}" class="img-fluid img-thumbnail" alt="">
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
